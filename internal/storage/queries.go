@@ -8,7 +8,6 @@ import (
 
 // SaveSnapshot inserts or ignores the card record, then saves a price snapshot.
 func (db *DB) SaveSnapshot(c scraper.Card) error {
-	// Insert card if it doesn't exist yet
 	_, err := db.conn.Exec(`
         INSERT OR IGNORE INTO cards (id, name, product_uri)
         VALUES (?, ?, ?)`,
@@ -18,7 +17,21 @@ func (db *DB) SaveSnapshot(c scraper.Card) error {
 		return fmt.Errorf("upsert card %s: %w", c.Name, err)
 	}
 
-	// Always insert a new price snapshot
+	// Don't save duplicate snapshots within the same hour
+	var count int
+	err = db.conn.QueryRow(`
+        SELECT COUNT(*) FROM price_snapshots
+        WHERE card_id = ?
+        AND scraped_at > datetime('now', '-1 hour')`,
+		c.ID,
+	).Scan(&count)
+	if err != nil {
+		return fmt.Errorf("check duplicate %s: %w", c.Name, err)
+	}
+	if count > 0 {
+		return nil // already saved this card recently, skip
+	}
+
 	_, err = db.conn.Exec(`
         INSERT INTO price_snapshots (card_id, price, change_pct, change_sign)
         VALUES (?, ?, ?, ?)`,
