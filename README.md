@@ -221,3 +221,10 @@ Prices are sourced from [PriceCharting.com](https://www.pricecharting.com/consol
 - [ ] Discord/Slack webhook alerts on spike detection
 - [ ] CSV export of price history
 - [ ] Support for additional Riftbound sets (Spiritforged, Unleashed)
+
+---
+
+## 👤 Author
+**Rayan Butt**
+
+[Linkedin](www.linkedin.com/in/rayan-butt-cs) | [Github](https://github.com/RayRB21?tab=overview&from=2025-07-01&to=2025-07-31)
