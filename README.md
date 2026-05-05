@@ -2,7 +2,7 @@
 
 A CLI tool written in Go that tracks **Riftbound** trading card prices over time, detecting price spikes and trends across the full card catalogue.
 
-Prices are sourced by reverse engineering PriceCharting's internal JSON endpoint — discovered via Chrome DevTools network analysis — and stored locally in a SQLite database. Each run adds a new price snapshot per card, building up a time-series history that the analysis engine queries to surface meaningful market movements.
+Prices are sourced by reverse engineering PriceCharting's internal JSON endpoint, discovered via Chrome DevTools network analysis, and stored locally in a SQLite database. Each run adds a new price snapshot per card, building up a time-series history that the analysis engine queries to surface meaningful market movements.
 
 ---
 
@@ -204,7 +204,7 @@ Flags:
 
 1. **Endpoint discovery** — PriceCharting's card listing page was analysed using Chrome DevTools (Network → Fetch/XHR tab) to identify an internal paginated JSON endpoint returning card name, price, and daily price change data across 700+ cards in batches of 50
 2. **Pagination** — the scraper increments a `cursor` parameter by 50 on each request until no products are returned, collecting all cards in one run
-3. **Storage** — each card is stored in a `cards` table (one row per card), with a new row written to `price_snapshots` on every scrape — giving a time-series history per card
+3. **Storage** — each card is stored in a `cards` table (one row per card), with a new row written to `price_snapshots` on every scrape, giving a time-series history per card
 4. **Analysis** — the analysis package computes price movement by comparing the oldest and latest snapshot for each card, ranks by absolute percentage change, and filters by a configurable spike threshold
 
 ---
