@@ -4,6 +4,8 @@ A CLI tool written in Go that tracks **Riftbound** trading card prices over time
 
 Prices are sourced by reverse engineering PriceCharting's internal JSON endpoint, discovered via Chrome DevTools network analysis, and stored locally in a SQLite database. Each run adds a new price snapshot per card, building up a time-series history that the analysis engine queries to surface meaningful market movements.
 
+Designed a CSV export pipeline from the SQLite price database, then built an Excel workbook featuring a structured data table, PivotTable analysis of price trends across 700+ cards, XLOOKUP-driven summary statistics, and a line chart visualising price movements for the most volatile cards over the tracked period. (*riftbound_price_tracker.xlsx*)
+
 ---
 
 ## Features
