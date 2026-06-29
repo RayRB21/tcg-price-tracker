@@ -14,6 +14,7 @@ Prices are sourced by reverse engineering PriceCharting's internal JSON endpoint
 - **Top movers** — ranks cards by absolute price movement (up or down) across all stored snapshots
 - **Price history** — shows the full price timeline for any individual card with moving average
 - **Deduplication** — prevents duplicate snapshots within the same hour
+- **CSV Export** — exports data as csv
 
 ---
 
@@ -37,6 +38,7 @@ tcg-price-tracker/
 │   ├── main.go          # Entry point
 │   ├── root.go          # Cobra root command
 │   ├── scrape.go        # scrape subcommand
+│   ├── export.go        # export subcommand
 │   ├── movers.go        # movers subcommand
 │   ├── spikes.go        # spikes subcommand
 │   ├── history.go       # history subcommand
@@ -219,7 +221,6 @@ Prices are sourced from [PriceCharting.com](https://www.pricecharting.com/consol
 
 - [ ] Scheduled polling with `time.Ticker` so history builds automatically
 - [ ] Discord/Slack webhook alerts on spike detection
-- [ ] CSV export of price history
 - [ ] Support for additional Riftbound sets (Spiritforged, Unleashed)
 
 ---
